@@ -1,15 +1,21 @@
-import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
+import { ApolloServer } from 'apollo-server';
+
+import connectMongo from './db';
+import schema from './graphql/schema';
 
 dotenv.config();
 
-const app: Express = express();
 const port = process.env.PORT;
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server');
+const server = new ApolloServer({
+  schema,
 });
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
-});
+connectMongo()
+  .then(() => {
+    console.log('Connected to mongo successfully');
+    return server.listen({ port });
+  }).then(res => {
+    console.log(`Server is running at ${res.url}`);
+  });
