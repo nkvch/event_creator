@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import { ApolloServer } from 'apollo-server';
+import { ApolloServerPluginCacheControl } from 'apollo-server-core';
 
 import connectMongo from './db';
 import schema from './graphql/schema';
@@ -10,6 +11,7 @@ const port = process.env.PORT;
 
 const server = new ApolloServer({
   schema,
+  plugins: [ApolloServerPluginCacheControl({ defaultMaxAge: 5 })],
 });
 
 connectMongo()
