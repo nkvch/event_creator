@@ -11,7 +11,7 @@ export default {
   Query: {
     getEvents: async () => {
       try {
-        const events = await Event.find();
+        const events = await Event.find().sort({ createdAt: 'desc' });
 
         return events;
       } catch (e) {

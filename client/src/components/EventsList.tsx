@@ -20,7 +20,7 @@ function EventsList() {
     notifyOnNetworkStatusChange: true,
   });
 
-  console.log(loading);
+  console.log(data);
 
   return (
     <div className={`events-holder ${loading ? 'loading' : ''}`}>
@@ -34,5 +34,7 @@ function EventsList() {
     </div>
   );
 };
+
+export { GET_EVENTS };
 
 export default EventsList;

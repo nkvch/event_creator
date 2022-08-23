@@ -13,6 +13,42 @@ body {
   box-sizing: border-box;
 }
 
+input[type="date"] {
+  position: relative;
+}
+
+/* create a new arrow, because we are going to mess up the native one
+see "List of symbols" below if you want another, you could also try to add a font-awesome icon.. */
+input[type="date"]:after {
+  content: "\25BC"; 
+  color: #555;
+  padding: 0 5px;
+}
+
+input[type="date"]:hover:after {
+  color: #bf1400;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  color: transparent;
+  background: transparent;
+}
+
+input[type="date"]::-webkit-inner-spin-button {
+  z-index: 1;
+}
+
+input[type="date"]::-webkit-clear-button {
+   z-index: 1;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -51,14 +87,16 @@ main {
 
 .event {
   position: relative;
+  min-width: 230px;
   width: $event-width-standard;
-  min-height: $event-height-standard;
+  height: $event-height-standard;
   margin: $event-margin-standard;
+  overflow: hidden;
   // padding: 20px;
   border-radius: 20px;
   align-self: flex-start;
   // transition: height 0.2s ease-in-out;
-  transition: min-height 0.2s ease-in-out;
+  transition: height 0.2s ease-in-out;
   &.green {
     background-color: green;
   }
@@ -75,10 +113,19 @@ main {
     margin: 20px;
   }
   &.opened {
-    min-height: $event-height-expanded;
+    height: $event-height-expanded;
+    h3 {
+      margin-left: 20px;
+    }
   }
   table.event-data {
     margin: 20px;
+  }
+  &.form {
+    &:not(.opened) {
+      outline: 1px dotted black;
+      outline-offset: -10px;
+    }
   }
 }
 
@@ -161,6 +208,18 @@ main {
   padding: 15px;
 }
 
+.event-add {
+  border: none;
+  outline: none;
+  position: absolute;
+  cursor: pointer;
+  background-color: transparent;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
 // LOADER
 
 .loader-holder {
@@ -208,9 +267,6 @@ main {
   10% {
     transform: scale(0);
   }
-  // 80% {
-  //   transform: scale(1);
-  // }
   100% {
     transform: scale(1);
   }
@@ -235,4 +291,43 @@ main {
   }
 }
 
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+}
 
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}

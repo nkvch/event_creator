@@ -1,10 +1,11 @@
 import gql from 'graphql-tag';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import Loader from './Loader';
 import Dimmer from './Dimmer';
-import AngleButton from './static/AngleButton';
-import CrossButton from './static/CrossButton';
+import ExpandIcon from './static/ExpandIcon';
+import DeleteIcon from './static/DeleteIcon';
+import ToastContext from '../context';
 
 interface EventData {
   firstName: string,
@@ -43,9 +44,13 @@ const DELETE_EVENT = gql`
 `;
 
 function Event({ id, date, refetch }: { id: string, date: string, refetch: Function }) {
+  const toast = useContext(ToastContext);
   const [removeEvent, { loading: removing }] = useMutation(DELETE_EVENT, {
     update(proxy, result) {
       refetch();
+      console.log(result);
+      
+      toast?.setToast('yahoo');
     },
     variables: { id },
   });
@@ -65,9 +70,12 @@ function Event({ id, date, refetch }: { id: string, date: string, refetch: Funct
 
   const filterNessesaryData = ([fieldName]: string[]) => ['firstName', 'lastName', 'email', 'date'].includes(fieldName);
 
-  const renderData = ([fieldName, fieldValue]: string[]) => <tr><td>{fieldNameMap.get(fieldName)}</td><td>{fieldValue}</td></tr>
+  const renderData = ([fieldName, fieldValue]: string[]) => <tr key={fieldValue}><td>{fieldNameMap.get(fieldName)}</td><td>{fieldValue}</td></tr>
 
   const eventData = data?.getEvent as EventData || {};
+
+  console.log(eventData);
+  
 
   return (
     <>
@@ -79,28 +87,34 @@ function Event({ id, date, refetch }: { id: string, date: string, refetch: Funct
             <>
               {
                 getting ? <Loader /> : (
-                  <table className="event-data">
-                    <th>Event data</th>
-                    {Object.entries(eventData).filter(filterNessesaryData).map(renderData)}
-                  </table>
+                  <>
+                    <h3>Event data</h3>
+                    <table className="event-data">
+                      <tbody>
+                        {Object.entries(eventData).filter(filterNessesaryData).map(renderData)}
+                      </tbody>
+                    </table>
+                  </>
                 )
               }
             </>
           ) : (
             <>
               <button className="event-delete" type="button" onClick={() => removeEvent()}>
-                <CrossButton />
+                <DeleteIcon />
               </button>
               <h3 className="event-date-preview">{new Date(date).toDateString()}</h3>
             </>
           )
       }
         <button className="event-expand" type="button" onClick={() => setOpen(prev => !prev)}>
-          <AngleButton inverted={open} />
+          <ExpandIcon inverted={open} />
         </button>
       </div>
     </>
   )
 };
+
+export { GET_EVENT, DELETE_EVENT };
 
 export default Event;

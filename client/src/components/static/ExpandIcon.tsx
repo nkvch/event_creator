@@ -1,6 +1,6 @@
 import React from 'react';
 
-function AngleButton({ inverted }: { inverted: boolean }) {
+function ExpandIcon({ inverted }: { inverted: boolean }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -20,4 +20,4 @@ function AngleButton({ inverted }: { inverted: boolean }) {
   );
 }
 
-export default AngleButton;
+export default ExpandIcon;

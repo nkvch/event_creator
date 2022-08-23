@@ -5,6 +5,8 @@ const EventSchema: Schema = new Schema({
   lastName: String,
   email: String,
   date: String,
+}, {
+  timestamps: true,
 });
 
 export default model('Event', EventSchema);
