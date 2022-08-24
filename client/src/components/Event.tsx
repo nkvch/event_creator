@@ -50,7 +50,7 @@ function Event({ id, date, refetch }: { id: string, date: string, refetch: Funct
       refetch();
       console.log(result);
       
-      toast?.setToast('yahoo');
+      toast?.setToast('Deleted successfully');
     },
     variables: { id },
   });
