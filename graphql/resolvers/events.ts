@@ -13,6 +13,7 @@ export default {
       try {
         const events = await Event.find().sort({ createdAt: 'desc' });
 
+        console.log(events);
         return events;
       } catch (e) {
         throw new Error('Error while getting events');

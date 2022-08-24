@@ -45,4 +45,6 @@ connectMongo()
     server.applyMiddleware({ app });
     return new Promise<void>(resolve => { httpServer.listen({ port }, resolve); });
   })
-  .then(() => console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath} \nFrontend: http://localhost:${port}`));
+  .then(() => {
+    console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath} \nFrontend: http://localhost:${port}`);
+  });
