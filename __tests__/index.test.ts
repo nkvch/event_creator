@@ -14,6 +14,5 @@ it('returns array of events', async () => {
     variables: {},
   });
 
-  console.log(result.data.getEvents);
   // expect(result.data.getEvents[1]._id).toBe('6306484a20bf851e27ccb13d');
 });
