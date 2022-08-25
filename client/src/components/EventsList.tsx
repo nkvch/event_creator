@@ -20,8 +20,6 @@ function EventsList() {
     notifyOnNetworkStatusChange: true,
   });
 
-  console.log(data);
-
   return (
     <div className={`events-holder ${loading ? 'loading' : ''}`}>
       <EventForm refetchAfterSubmit={refetch} />

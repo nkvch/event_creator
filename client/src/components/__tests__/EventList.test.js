@@ -49,7 +49,6 @@ it('EventsList component works as intended', async () => {
     </MockedProvider>
   );
 
-  console.log(events);
   expect(await screen.findByText('Add event')).toBeInTheDocument();
 
   const dateToFind = new Date(randomEvent.date).toDateString();

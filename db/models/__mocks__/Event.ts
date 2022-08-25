@@ -1,8 +1,10 @@
+import mongoose from 'mongoose';
+
 export default {
   find: () => ({
     sort: async () => ([
       {
-        _id: '63064f3220bf851e27ccb15e',
+        _id: new mongoose.Types.ObjectId('63064f3220bf851e27ccb15e'),
         firstName: 'react',
         lastName: 'react',
         email: 'react@gmail.com',
@@ -12,7 +14,7 @@ export default {
         __v: 0,
       },
       {
-        _id: '6306484a20bf851e27ccb13d',
+        _id: new mongoose.Types.ObjectId('6306484a20bf851e27ccb13d'),
         firstName: 'Dfrgt',
         lastName: 'Ftdgdt',
         email: 'rgr@grsg.rg',
@@ -22,7 +24,7 @@ export default {
         __v: 0,
       },
       {
-        _id: '630628e803b806f547c2af47',
+        _id: new mongoose.Types.ObjectId('630628e803b806f547c2af47'),
         firstName: 'Ftgdt',
         lastName: 'Ggrtsh',
         email: 'fregd@ger.ge',

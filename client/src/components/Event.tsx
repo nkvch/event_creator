@@ -48,7 +48,6 @@ function Event({ id, date, refetch }: { id: string, date: string, refetch: Funct
   const [removeEvent, { loading: removing }] = useMutation(DELETE_EVENT, {
     update(proxy, result) {
       refetch();
-      console.log(result);
       
       toast?.setToast('Deleted successfully');
     },
@@ -73,9 +72,6 @@ function Event({ id, date, refetch }: { id: string, date: string, refetch: Funct
   const renderData = ([fieldName, fieldValue]: string[]) => <tr key={fieldValue}><td>{fieldNameMap.get(fieldName)}</td><td>{fieldValue}</td></tr>
 
   const eventData = data?.getEvent as EventData || {};
-
-  console.log(eventData);
-  
 
   return (
     <>

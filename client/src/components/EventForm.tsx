@@ -18,7 +18,6 @@ function EventForm({ refetchAfterSubmit }: { refetchAfterSubmit: Function }) {
   const { setToast } = useContext(ToastContext);
   const [addEvent, { loading: saving, error }] = useMutation(ADD_EVENT, {
     update(proxy, result) {
-      console.log(result);
     },
   });
 
